@@ -17,28 +17,7 @@
       <div id="navbarInfo" v-bind:class="{'is-active':showNav, 'active-nav':showNav}" class="navbar-menu is-paddingless">
         <div class="navbar-start" v-bind:class="{'is-hidden': !showNav, 'active-nav':showNav}">
           <div class="columns is-mobile is-marginless" v-bind:class="{'active-nav':showNav}">
-            <div class="column is-paddingless">
-              <nav class="panel">
-                <div class="panel-heading" style="border-radius: 0">
-                  Projects
-                  <a>
-                    <i class="fas fa-plus"></i>
-                  </a>
-                </div>
-                <a class="panel-block">
-                  <span class="panel-icon">
-                    <i class="far fa-dot-circle" aria-hidden="true"></i>
-                  </span>
-                  Cooking
-                </a>
-                <a class="panel-block">
-                  <span class="panel-icon">
-                    <i class="far fa-dot-circle" aria-hidden="true"></i>
-                  </span>
-                  Household
-                </a>
-              </nav>
-            </div>
+            <ProjectsList class-list=""></ProjectsList>
           </div>
         </div>
         <div class="navbar-end" v-bind:class="{'is-hidden':showNav}">
@@ -58,28 +37,7 @@
 
     <div class="columns is-mobile is-marginless" v-bind:class="{'is-hidden': showNav}">
 
-      <div class="column is-one-fifth is-hidden-touch is-paddingless">
-        <nav class="panel scroll-container">
-          <div class="panel-heading" style="border-radius: 0">
-            Projects
-            <a>
-              <i class="fas fa-plus"></i>
-            </a>
-          </div>
-          <a class="panel-block">
-            <span class="panel-icon">
-              <i class="far fa-dot-circle" aria-hidden="true"></i>
-            </span>
-            Cooking
-          </a>
-          <a class="panel-block">
-            <span class="panel-icon">
-              <i class="far fa-dot-circle" aria-hidden="true"></i>
-            </span>
-            Household
-          </a>
-        </nav>
-      </div>
+      <ProjectsList class-list="is-one-fifth is-hidden-touch"></ProjectsList>
 
       <div class="column is-paddingless" style="background-color: whitesmoke">
         <div class="scroll-container">
@@ -140,6 +98,7 @@
 </template>
 
 <script>
+import ProjectsList from './components/ProjectsList.vue'
 export default {
   name: 'App',
   data () {
@@ -148,6 +107,9 @@ export default {
       showNav: false,
       showButtons: false
     }
+  },
+  components: {
+    ProjectsList
   },
   created () {
     window.addEventListener('resize', this.checkForActiveNav)
@@ -160,7 +122,6 @@ export default {
       this.showNav = !this.showNav
     },
     checkForActiveNav () {
-      console.log(window.innerWidth)
       if (window.innerWidth > 1011 && this.showNav) {
         this.showNav = false
       }
@@ -192,9 +153,6 @@ export default {
     overflow-y: auto;
     height: 0px;
     flex: 1 1 auto;
-  }
-  .panel-heading > a {
-    margin-left: 1rem;
   }
   .active-nav {
     display: flex !important;
