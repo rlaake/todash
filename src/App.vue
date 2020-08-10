@@ -1,30 +1,29 @@
 <template>
   <div id="app">
-    <Navigation></Navigation>
+    <Navigation v-bind:showNav="showNav" v-on:toggle-nav="navClick"></Navigation>
     <div class="columns is-mobile is-marginless" v-bind:class="{'is-hidden': showNav}">
-      <ProjectsList class-list="is-2 is-hidden-touch"></ProjectsList>
-      <TodosList></TodosList>
+      <ProjectList class-list="is-2 is-hidden-touch"></ProjectList>
+      <TaskList></TaskList>
     </div>
   </div>
 </template>
 
 <script>
 import Navigation from './components/Navigation.vue'
-import ProjectsList from './components/ProjectsList.vue'
-import TodosList from './components/TodosList.vue'
+import ProjectList from './components/ProjectList.vue'
+import TaskList from './components/TaskList.vue'
 export default {
   name: 'App',
   data () {
     return {
-      today: new Date().toLocaleDateString(),
       showNav: false,
       showButtons: false
     }
   },
   components: {
     Navigation,
-    ProjectsList,
-    TodosList
+    ProjectList,
+    TaskList
   },
   created () {
     window.addEventListener('resize', this.checkForActiveNav)
@@ -43,6 +42,9 @@ export default {
     },
     toggleButtons () {
       this.showButtons = !this.showButtons
+    },
+    navClick () {
+      this.toggleNav()
     }
   }
 }

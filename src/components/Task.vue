@@ -6,9 +6,9 @@
     <div class="media-content">
       <div class="content">
         <p>
-          <small style="color: red;">! Important</small>
+          <small style="color: red;" v-bind:class="task.important">! Important</small>
           <br>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.
+          {{task.title}}
         </p>
       </div>
     </div>
@@ -21,7 +21,8 @@
 
 <script>
 export default {
-  name: 'Todo'
+  name: 'Task',
+  props: ['task']
 }
 </script>
 

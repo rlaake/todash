@@ -7,7 +7,7 @@
           <i class="fas fa-plus"></i>
         </a>
       </div>
-      <Project></Project>
+      <Project v-for="project in projects" v-bind:key="project.id" v-bind:project="project"></Project>
     </nav>
   </div>
 </template>
@@ -19,6 +19,11 @@ export default {
   props: ['classList'],
   components: {
     Project
+  },
+  computed: {
+    projects () {
+      return this.$store.getters.getProjects
+    }
   }
 }
 </script>

@@ -15,7 +15,7 @@
     <div id="navbarInfo" v-bind:class="{'is-active':showNav, 'active-nav':showNav}" class="navbar-menu is-paddingless">
       <div class="navbar-start" v-bind:class="{'is-hidden': !showNav, 'active-nav':showNav}">
         <div class="columns is-mobile is-marginless" v-bind:class="{'active-nav':showNav}">
-          <ProjectsList class-list=""></ProjectsList>
+          <ProjectList class-list=""></ProjectList>
         </div>
       </div>
       <div class="navbar-end" v-bind:class="{'is-hidden':showNav}">
@@ -35,11 +35,25 @@
 </template>
 
 <script>
+import ProjectList from './ProjectList'
 export default {
-  name: 'Navigation'
+  name: 'Navigation',
+  props: ['showNav'],
+  components: {
+    ProjectList
+  },
+  data () {
+    return {
+      today: new Date().toLocaleDateString()
+    }
+  },
+  methods: {
+    toggleNav () {
+      this.$emit('toggle-nav')
+    }
+  }
 }
 </script>
 
 <style scoped>
-
 </style>

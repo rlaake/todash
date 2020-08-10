@@ -11,17 +11,22 @@
           </a>
         </div>
       </nav>
-      <Todo></Todo>
+      <Task v-for="(task, index) in tasks" v-bind:key="index" v-bind:task="task"></Task>
     </div>
   </div>
 </template>
 
 <script>
-import Todo from './Todo.vue'
+import Task from './Task.vue'
 export default {
-  name: 'TodosList',
+  name: 'TaskList',
   components: {
-    Todo
+    Task
+  },
+  computed: {
+    tasks () {
+      return this.$store.getters.getTodos
+    }
   }
 }
 </script>
