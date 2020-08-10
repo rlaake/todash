@@ -16,8 +16,7 @@ export default {
   name: 'App',
   data () {
     return {
-      showNav: false,
-      showButtons: false
+      showNav: false
     }
   },
   components: {
@@ -39,9 +38,6 @@ export default {
       if (window.innerWidth > 1011 && this.showNav) {
         this.showNav = false
       }
-    },
-    toggleButtons () {
-      this.showButtons = !this.showButtons
     },
     navClick () {
       this.toggleNav()

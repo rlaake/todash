@@ -1,12 +1,13 @@
 <template>
   <article class="media" v-on:mouseover="toggleButtons" v-on:mouseout="toggleButtons">
     <figure class="media-left is-size-4" style="align-self: center; padding-top: 0; padding-right: 0.5rem">
-      <i class="far fa-dot-circle"></i>
+      <i class="far fa-dot-circle" v-bind:style="style"></i>
     </figure>
     <div class="media-content">
       <div class="content">
         <p>
-          <small style="color: red;" v-bind:class="task.important">! Important</small>
+          <small style="color: red;" v-bind:class="{'is-hidden': !task.important}">! Important  </small>
+          <small>Due: {{task.dueDate.toLocaleDateString()}}</small>
           <br>
           {{task.title}}
         </p>
@@ -22,7 +23,22 @@
 <script>
 export default {
   name: 'Task',
-  props: ['task']
+  props: ['task', 'color'],
+  data () {
+    return {
+      showButtons: false
+    }
+  },
+  methods: {
+    toggleButtons () {
+      this.showButtons = !this.showButtons
+    }
+  },
+  computed: {
+    style () {
+      return 'color: ' + this.color
+    }
+  }
 }
 </script>
 

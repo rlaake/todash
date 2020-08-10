@@ -3,7 +3,7 @@ export const seedData = [
     id: 1,
     title: 'Cooking',
     color: 'green',
-    current: true,
+    current: false,
     tasks: [
       {
         title: 'Lorem ipsum dolor sit amet.',
@@ -32,7 +32,7 @@ export const seedData = [
     id: 2,
     title: 'Cleaning',
     color: 'red',
-    current: false,
+    current: true,
     tasks: [
       {
         title: 'Lorem ipsum dolor sit amet.',

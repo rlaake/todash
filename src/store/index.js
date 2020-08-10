@@ -16,18 +16,8 @@ export default new Vuex.Store({
   },
   getters: {
     getProjects: state => state.seedData,
-    getProjectById: (state) => (id) => {
-      return state.seedData.find(project => project.id === id)
-    },
-    getCurrentProjectId: (state) => {
-      return state.seedData.find(project => project.current).id
-    },
-    getTasks: (state) => {
-      const id = this.getCurrentProjectId
-      console.log(id)
-      const currentProject = this.getProjectById(id)
-      console.log(currentProject)
-      return currentProject.tasks
+    getCurrentProject: (state) => {
+      return state.seedData.find(project => project.current)
     }
   }
 })
