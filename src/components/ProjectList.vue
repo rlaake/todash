@@ -24,6 +24,9 @@ export default {
     projects () {
       return this.$store.getters.getProjects
     }
+  },
+  methods: {
+
   }
 }
 </script>
