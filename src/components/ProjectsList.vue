@@ -7,158 +7,19 @@
           <i class="fas fa-plus"></i>
         </a>
       </div>
-      <a class="panel-block">
-        <span class="panel-icon">
-          <i class="far fa-dot-circle" aria-hidden="true"></i>
-        </span>
-        Cooking
-      </a>
-      <a class="panel-block">
-        <span class="panel-icon">
-          <i class="far fa-dot-circle" aria-hidden="true"></i>
-        </span>
-        Household
-      </a>
-      <a class="panel-block">
-        <span class="panel-icon">
-          <i class="far fa-dot-circle" aria-hidden="true"></i>
-        </span>
-        Household
-      </a>
-      <a class="panel-block">
-        <span class="panel-icon">
-          <i class="far fa-dot-circle" aria-hidden="true"></i>
-        </span>
-        Household
-      </a>
-      <a class="panel-block">
-        <span class="panel-icon">
-          <i class="far fa-dot-circle" aria-hidden="true"></i>
-        </span>
-        Household
-      </a>
-      <a class="panel-block">
-        <span class="panel-icon">
-          <i class="far fa-dot-circle" aria-hidden="true"></i>
-        </span>
-        Household
-      </a>
-      <a class="panel-block">
-        <span class="panel-icon">
-          <i class="far fa-dot-circle" aria-hidden="true"></i>
-        </span>
-        Household
-      </a>
-      <a class="panel-block">
-        <span class="panel-icon">
-          <i class="far fa-dot-circle" aria-hidden="true"></i>
-        </span>
-        Household
-      </a>
-      <a class="panel-block">
-        <span class="panel-icon">
-          <i class="far fa-dot-circle" aria-hidden="true"></i>
-        </span>
-        Household
-      </a>
-      <a class="panel-block">
-        <span class="panel-icon">
-          <i class="far fa-dot-circle" aria-hidden="true"></i>
-        </span>
-        Household
-      </a>
-      <a class="panel-block">
-        <span class="panel-icon">
-          <i class="far fa-dot-circle" aria-hidden="true"></i>
-        </span>
-        Household
-      </a>
-      <a class="panel-block">
-        <span class="panel-icon">
-          <i class="far fa-dot-circle" aria-hidden="true"></i>
-        </span>
-        Household
-      </a>
-      <a class="panel-block">
-        <span class="panel-icon">
-          <i class="far fa-dot-circle" aria-hidden="true"></i>
-        </span>
-        Household
-      </a>
-      <a class="panel-block">
-        <span class="panel-icon">
-          <i class="far fa-dot-circle" aria-hidden="true"></i>
-        </span>
-        Household
-      </a>
-      <a class="panel-block">
-        <span class="panel-icon">
-          <i class="far fa-dot-circle" aria-hidden="true"></i>
-        </span>
-        Household
-      </a>
-      <a class="panel-block">
-        <span class="panel-icon">
-          <i class="far fa-dot-circle" aria-hidden="true"></i>
-        </span>
-        Household
-      </a>
-      <a class="panel-block">
-        <span class="panel-icon">
-          <i class="far fa-dot-circle" aria-hidden="true"></i>
-        </span>
-        Household
-      </a>
-      <a class="panel-block">
-        <span class="panel-icon">
-          <i class="far fa-dot-circle" aria-hidden="true"></i>
-        </span>
-        Household
-      </a>
-      <a class="panel-block">
-        <span class="panel-icon">
-          <i class="far fa-dot-circle" aria-hidden="true"></i>
-        </span>
-        Household
-      </a>
-      <a class="panel-block">
-        <span class="panel-icon">
-          <i class="far fa-dot-circle" aria-hidden="true"></i>
-        </span>
-        Household
-      </a>
-      <a class="panel-block">
-        <span class="panel-icon">
-          <i class="far fa-dot-circle" aria-hidden="true"></i>
-        </span>
-        Household
-      </a>
-      <a class="panel-block">
-        <span class="panel-icon">
-          <i class="far fa-dot-circle" aria-hidden="true"></i>
-        </span>
-        Household
-      </a>
-      <a class="panel-block">
-        <span class="panel-icon">
-          <i class="far fa-dot-circle" aria-hidden="true"></i>
-        </span>
-        Household
-      </a>
-      <a class="panel-block">
-        <span class="panel-icon">
-          <i class="far fa-dot-circle" aria-hidden="true"></i>
-        </span>
-        Household
-      </a>
+      <Project></Project>
     </nav>
   </div>
 </template>
 
 <script>
+import Project from './Project.vue'
 export default {
   name: 'ProjectList',
-  props: ['classList']
+  props: ['classList'],
+  components: {
+    Project
+  }
 }
 </script>
 

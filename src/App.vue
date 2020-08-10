@@ -2,7 +2,7 @@
   <div id="app">
     <Navigation></Navigation>
     <div class="columns is-mobile is-marginless" v-bind:class="{'is-hidden': showNav}">
-      <ProjectsList class-list="is-one-fifth is-hidden-touch"></ProjectsList>
+      <ProjectsList class-list="is-2 is-hidden-touch"></ProjectsList>
       <TodosList></TodosList>
     </div>
   </div>
