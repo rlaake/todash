@@ -1,80 +1,45 @@
 <template>
-  <div class="modal is-active">
-    <div class="modal-background"></div>
+  <div class="modal" v-bind:class="{'is-active': showModal}">
+    <div class="modal-background" v-on:click="closeModal"></div>
     <div class="modal-content">
+
       <div class="field">
-        <label class="label">Name</label>
+        <label class="label">Title</label>
         <div class="control">
-          <input class="input" type="text" placeholder="Text input">
+          <input class="input" type="text" placeholder="Task title">
         </div>
       </div>
 
       <div class="field">
-        <label class="label">Username</label>
-        <div class="control has-icons-left has-icons-right">
-          <input class="input is-success" type="text" placeholder="Text input" value="bulma">
-          <span class="icon is-small is-left">
-            <i class="fas fa-user"></i>
-          </span>
-          <span class="icon is-small is-right">
-            <i class="fas fa-check"></i>
-          </span>
+        <label class="label">Description</label>
+        <div class="control">
+          <input class="input" type="text" placeholder="Task description">
         </div>
-        <p class="help is-success">This username is available</p>
       </div>
 
       <div class="field">
-        <label class="label">Email</label>
+        <label class="label">Due Date</label>
         <div class="control has-icons-left has-icons-right">
-          <input class="input is-danger" type="email" placeholder="Email input" value="hello@">
+          <input class="input is-danger" type="email" placeholder="(MM/DD/YYYY)">
           <span class="icon is-small is-left">
-            <i class="fas fa-envelope"></i>
+            <i class="fas fa-calendar"></i>
           </span>
           <span class="icon is-small is-right">
             <i class="fas fa-exclamation-triangle"></i>
           </span>
         </div>
-        <p class="help is-danger">This email is invalid</p>
+        <p class="help is-danger">This date is invalid</p>
       </div>
 
       <div class="field">
-        <label class="label">Subject</label>
+        <label class="label">Priority</label>
         <div class="control">
           <div class="select">
             <select>
-              <option>Select dropdown</option>
-              <option>With options</option>
+              <option>High</option>
+              <option>Low</option>
             </select>
           </div>
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label">Message</label>
-        <div class="control">
-          <textarea class="textarea" placeholder="Textarea"></textarea>
-        </div>
-      </div>
-
-      <div class="field">
-        <div class="control">
-          <label class="checkbox">
-            <input type="checkbox">
-            I agree to the <a href="#">terms and conditions</a>
-          </label>
-        </div>
-      </div>
-
-      <div class="field">
-        <div class="control">
-          <label class="radio">
-            <input type="radio" name="question">
-            Yes
-          </label>
-          <label class="radio">
-            <input type="radio" name="question">
-            No
-          </label>
         </div>
       </div>
 
@@ -87,16 +52,28 @@
         </div>
       </div>
     </div>
-    <button class="modal-close is-large" aria-label="close"></button>
+    <button class="modal-close is-large" aria-label="close" v-on:click="closeModal"></button>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'NewTask'
+  name: 'NewTask',
+  methods: {
+    closeModal () {
+      this.$store.dispatch('toggleNewTask')
+    }
+  },
+  computed: {
+    showModal () {
+      return this.$store.getters.getNewTaskStatus
+    }
+  }
 }
 </script>
 
 <style scoped>
-
+  label {
+    color: whitesmoke;
+  }
 </style>

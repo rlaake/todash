@@ -1,6 +1,6 @@
 <template>
-  <div class="modal">
-    <div class="modal-background"></div>
+  <div class="modal" v-bind:class="{'is-active': showModal}">
+    <div class="modal-background" v-on:click="closeModal"></div>
     <div class="modal-content">
       <div class="field">
         <label class="label">Name</label>
@@ -56,28 +56,6 @@
         </div>
       </div>
 
-      <div class="field">
-        <div class="control">
-          <label class="checkbox">
-            <input type="checkbox">
-            I agree to the <a href="#">terms and conditions</a>
-          </label>
-        </div>
-      </div>
-
-      <div class="field">
-        <div class="control">
-          <label class="radio">
-            <input type="radio" name="question">
-            Yes
-          </label>
-          <label class="radio">
-            <input type="radio" name="question">
-            No
-          </label>
-        </div>
-      </div>
-
       <div class="field is-grouped">
         <div class="control">
           <button class="button is-link">Submit</button>
@@ -87,16 +65,28 @@
         </div>
       </div>
     </div>
-    <button class="modal-close is-large" aria-label="close"></button>
+    <button class="modal-close is-large" aria-label="close" v-on:click="closeModal"></button>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'NewProject'
+  name: 'NewProject',
+  methods: {
+    closeModal () {
+      this.$store.dispatch('toggleNewProject')
+    }
+  },
+  computed: {
+    showModal () {
+      return this.$store.getters.getNewProjectStatus
+    }
+  }
 }
 </script>
 
 <style scoped>
-
+  label {
+    color: whitesmoke;
+  }
 </style>

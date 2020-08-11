@@ -3,7 +3,7 @@
     <nav class="panel scroll-container">
       <div class="panel-heading">
         Projects
-        <a>
+        <a v-on:click="openModal">
           <i class="fas fa-plus"></i>
         </a>
       </div>
@@ -28,6 +28,9 @@ export default {
   methods: {
     closeNav () {
       this.$emit('close-nav')
+    },
+    openModal () {
+      this.$store.dispatch('toggleNewProject')
     }
   }
 }

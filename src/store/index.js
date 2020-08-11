@@ -7,7 +7,9 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     seedData,
-    showNav: false
+    showNav: false,
+    showNewProject: false,
+    showNewTask: false
   },
   mutations: {
     SET_ACTIVE_PROJECT (state, id) {
@@ -26,6 +28,12 @@ export default new Vuex.Store({
     },
     TOGGLE_NAV (state) {
       state.showNav = !state.showNav
+    },
+    TOGGLE_NEW_PROJECT (state) {
+      state.showNewProject = !state.showNewProject
+    },
+    TOGGLE_NEW_TASK (state) {
+      state.showNewTask = !state.showNewTask
     },
     SET_NAV_STATUS (state, payload) {
       state.showNav = payload
@@ -47,6 +55,12 @@ export default new Vuex.Store({
     toggleNav ({ commit }) {
       commit('TOGGLE_NAV')
     },
+    toggleNewProject ({ commit }) {
+      commit('TOGGLE_NEW_PROJECT')
+    },
+    toggleNewTask ({ commit }) {
+      commit('TOGGLE_NEW_TASK')
+    },
     setNav ({ commit }, status) {
       commit('SET_NAV_STATUS', status)
     }
@@ -61,6 +75,8 @@ export default new Vuex.Store({
     getActiveProject: (state) => {
       return state.seedData.find(project => project.active)
     },
-    getNavStatus: state => state.showNav
+    getNavStatus: state => state.showNav,
+    getNewProjectStatus: state => state.showNewProject,
+    getNewTaskStatus: state => state.showNewTask
   }
 })
