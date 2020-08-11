@@ -4,14 +4,14 @@
       <nav class="level is-mobile">
         <div class="level-left">
           <a class="level-item">
-            <span class="is-size-3">{{currentProject.title}}</span>
+            <span class="is-size-3">{{activeProject.title}}</span>
           </a>
           <a class="level-item">
             <span class="icon is-size-5"><i class="fas fa-calendar"></i></span>
           </a>
         </div>
       </nav>
-      <Task v-for="(task, index) in currentProject.tasks" v-bind:task="task" v-bind:key="index" v-bind:color="currentProject.color"></Task>
+      <Task v-for="(task, index) in activeProject.tasks" v-bind:task="task" v-bind:key="index"></Task>
     </div>
   </div>
 </template>
@@ -24,8 +24,8 @@ export default {
     Task
   },
   computed: {
-    currentProject () {
-      return this.$store.getters.getCurrentProject
+    activeProject () {
+      return this.$store.getters.getActiveProject
     }
   }
 }

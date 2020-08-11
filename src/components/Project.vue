@@ -18,7 +18,7 @@ export default {
   },
   methods: {
     loadProject () {
-      this.$store.dispatch('setCurrentProject', this.project.id)
+      this.$store.dispatch('setActiveProject', this.project.id)
     }
   }
 }

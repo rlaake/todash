@@ -9,27 +9,38 @@ export default new Vuex.Store({
     seedData
   },
   mutations: {
-    SET_CURRENT_PROJECT (state, payload) {
-      const previousProject = this.getters.getCurrentProject
-      previousProject.current = false
-      const currentProject = this.getters.getProjectById(payload)
-      currentProject.current = true
+    SET_ACTIVE_PROJECT (state, id) {
+      state.seedData.map((project) => {
+        project.id === id ? project.active = true : project.active = false
+      })
+    },
+    SET_TASK_FINISHED (state, payload) {
+      state.seedData.find(project => project.id === payload.projectId).tasks[payload.taskId].finished = true
+    },
+    SET_TASK_UNFINISHED (state, payload) {
+      state.seedData.find(project => project.id === payload.projectId).tasks[payload.taskId].finished = false
     }
   },
   actions: {
-    setCurrentProject ({ commit }, id) {
-      commit('SET_CURRENT_PROJECT', id)
+    setActiveProject ({ commit }, id) {
+      commit('SET_ACTIVE_PROJECT', id)
+    },
+    setTaskFinished ({ commit }, ids) {
+      commit('SET_TASK_FINISHED', ids)
+    },
+    setTaskUnfinished ({ commit }, ids) {
+      commit('SET_TASK_UNFINISHED', ids)
     }
   },
   modules: {
   },
   getters: {
     getProjects: state => state.seedData,
-    getCurrentProject: (state) => {
-      return state.seedData.find(project => project.current)
-    },
     getProjectById: (state) => (id) => {
       return state.seedData.find(project => project.id === id)
+    },
+    getActiveProject: (state) => {
+      return state.seedData.find(project => project.active)
     }
   }
 })
