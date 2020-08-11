@@ -23,7 +23,7 @@
       <button class="button is-success" v-if="!task.finished" v-on:click="toggleComplete"><i class="fas fa-check"></i></button>
       <button class="button is-success" v-else v-on:click="toggleComplete"><i class="fas fa-undo-alt"></i></button>
       <button class="button is-info"><i class="fas fa-edit"></i></button>
-      <button class="button is-danger"><i class="fas fa-trash-alt"></i></button>
+      <button class="button is-danger" v-on:click="deleteTask"><i class="fas fa-trash-alt"></i></button>
     </div>
   </article>
 </template>
@@ -51,6 +51,13 @@ export default {
       } else {
         this.$store.dispatch('setTaskFinished', ids)
       }
+    },
+    deleteTask () {
+      const ids = {
+        projectId: this.task.project,
+        taskId: this.$vnode.key
+      }
+      this.$store.dispatch('deleteTask', ids)
     }
   },
   computed: {

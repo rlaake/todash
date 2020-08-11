@@ -19,6 +19,9 @@ export default new Vuex.Store({
     },
     SET_TASK_UNFINISHED (state, payload) {
       state.seedData.find(project => project.id === payload.projectId).tasks[payload.taskId].finished = false
+    },
+    DELETE_TASK (state, payload) {
+      state.seedData.find(project => project.id === payload.projectId).tasks.splice(payload.taskId, 1)
     }
   },
   actions: {
@@ -30,6 +33,9 @@ export default new Vuex.Store({
     },
     setTaskUnfinished ({ commit }, ids) {
       commit('SET_TASK_UNFINISHED', ids)
+    },
+    deleteTask ({ commit }, ids) {
+      commit('DELETE_TASK', ids)
     }
   },
   modules: {
