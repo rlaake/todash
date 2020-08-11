@@ -5,6 +5,8 @@
       <ProjectList class-list="is-2 is-hidden-touch"></ProjectList>
       <TaskList></TaskList>
     </div>
+    <NewProject></NewProject>
+    <NewTask></NewTask>
   </div>
 </template>
 
@@ -12,13 +14,17 @@
 import Navigation from './components/Navigation.vue'
 import ProjectList from './components/ProjectList.vue'
 import TaskList from './components/TaskList.vue'
+import NewProject from './components/NewProject.vue'
+import NewTask from './components/NewTask.vue'
 
 export default {
   name: 'App',
   components: {
     Navigation,
     ProjectList,
-    TaskList
+    TaskList,
+    NewProject,
+    NewTask
   },
   created () {
     window.addEventListener('resize', this.checkForActiveNav)
