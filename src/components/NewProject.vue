@@ -1,58 +1,19 @@
 <template>
   <div class="modal" v-bind:class="{'is-active': showModal}">
     <div class="modal-background" v-on:click="closeModal"></div>
-    <div class="modal-content">
+    <div class="modal-content has-text-centered">
+      <p class="is-size-1">New Project</p>
       <div class="field">
-        <label class="label">Name</label>
+        <label class="label is-pulled-left">Name</label>
         <div class="control">
-          <input class="input" type="text" placeholder="Text input">
+          <input class="input" type="text" placeholder="Project name">
         </div>
       </div>
 
       <div class="field">
-        <label class="label">Username</label>
-        <div class="control has-icons-left has-icons-right">
-          <input class="input is-success" type="text" placeholder="Text input" value="bulma">
-          <span class="icon is-small is-left">
-            <i class="fas fa-user"></i>
-          </span>
-          <span class="icon is-small is-right">
-            <i class="fas fa-check"></i>
-          </span>
-        </div>
-        <p class="help is-success">This username is available</p>
-      </div>
-
-      <div class="field">
-        <label class="label">Email</label>
-        <div class="control has-icons-left has-icons-right">
-          <input class="input is-danger" type="email" placeholder="Email input" value="hello@">
-          <span class="icon is-small is-left">
-            <i class="fas fa-envelope"></i>
-          </span>
-          <span class="icon is-small is-right">
-            <i class="fas fa-exclamation-triangle"></i>
-          </span>
-        </div>
-        <p class="help is-danger">This email is invalid</p>
-      </div>
-
-      <div class="field">
-        <label class="label">Subject</label>
+        <label class="label is-pulled-left">Color</label>
         <div class="control">
-          <div class="select">
-            <select>
-              <option>Select dropdown</option>
-              <option>With options</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label">Message</label>
-        <div class="control">
-          <textarea class="textarea" placeholder="Textarea"></textarea>
+          <input class="input" type="color" value="#0C00FF">
         </div>
       </div>
 
@@ -65,6 +26,7 @@
         </div>
       </div>
     </div>
+
     <button class="modal-close is-large" aria-label="close" v-on:click="closeModal"></button>
   </div>
 </template>
@@ -88,5 +50,12 @@ export default {
 <style scoped>
   label {
     color: whitesmoke;
+  }
+  p {
+    color: whitesmoke;
+  }
+  .field.is-grouped {
+    padding-top: 1rem;
+    justify-content: center;
   }
 </style>
