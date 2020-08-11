@@ -6,7 +6,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    seedData
+    seedData,
+    showNav: false
   },
   mutations: {
     SET_ACTIVE_PROJECT (state, id) {
@@ -22,6 +23,12 @@ export default new Vuex.Store({
     },
     DELETE_TASK (state, payload) {
       state.seedData.find(project => project.id === payload.projectId).tasks.splice(payload.taskId, 1)
+    },
+    TOGGLE_NAV (state) {
+      state.showNav = !state.showNav
+    },
+    SET_NAV_STATUS (state, payload) {
+      state.showNav = payload
     }
   },
   actions: {
@@ -36,6 +43,12 @@ export default new Vuex.Store({
     },
     deleteTask ({ commit }, ids) {
       commit('DELETE_TASK', ids)
+    },
+    toggleNav ({ commit }) {
+      commit('TOGGLE_NAV')
+    },
+    setNav ({ commit }, status) {
+      commit('SET_NAV_STATUS', status)
     }
   },
   modules: {
@@ -47,6 +60,7 @@ export default new Vuex.Store({
     },
     getActiveProject: (state) => {
       return state.seedData.find(project => project.active)
-    }
+    },
+    getNavStatus: state => state.showNav
   }
 })

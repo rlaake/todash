@@ -26,7 +26,9 @@ export default {
     }
   },
   methods: {
-
+    closeNav () {
+      this.$emit('close-nav')
+    }
   }
 }
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <a class="panel-block" v-on:click="loadProject">
+  <a class="panel-block" v-on:click="loadProject(); closeNav();">
     <span class="panel-icon">
       <i class="far fa-dot-circle" aria-hidden="true" v-bind:style="style"></i>
     </span>
@@ -19,6 +19,9 @@ export default {
   methods: {
     loadProject () {
       this.$store.dispatch('setActiveProject', this.project.id)
+    },
+    closeNav () {
+      this.$store.dispatch('setNav', false)
     }
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <Navigation v-bind:showNav="showNav" v-on:toggle-nav="navClick"></Navigation>
-    <div class="columns is-mobile is-marginless" v-bind:class="{'is-hidden': showNav}">
+    <Navigation v-on:toggle-nav="toggleNav()"></Navigation>
+    <div class="columns is-mobile is-marginless" v-bind:class="{'is-hidden': showNav()}">
       <ProjectList class-list="is-2 is-hidden-touch"></ProjectList>
       <TaskList></TaskList>
     </div>
@@ -12,13 +12,9 @@
 import Navigation from './components/Navigation.vue'
 import ProjectList from './components/ProjectList.vue'
 import TaskList from './components/TaskList.vue'
+
 export default {
   name: 'App',
-  data () {
-    return {
-      showNav: false
-    }
-  },
   components: {
     Navigation,
     ProjectList,
@@ -32,15 +28,15 @@ export default {
   },
   methods: {
     toggleNav () {
-      this.showNav = !this.showNav
+      this.$store.dispatch('toggleNav')
     },
     checkForActiveNav () {
-      if (window.innerWidth > 1011 && this.showNav) {
-        this.showNav = false
+      if (window.innerWidth > 1011 && this.showNav()) {
+        this.$store.dispatch('setNav', false)
       }
     },
-    navClick () {
-      this.toggleNav()
+    showNav () {
+      return this.$store.getters.getNavStatus
     }
   }
 }
