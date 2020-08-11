@@ -1,7 +1,7 @@
 <template>
   <div class="column is-paddingless" v-bind:class=classList>
     <nav class="panel scroll-container">
-      <div class="panel-heading" style="border-radius: 0">
+      <div class="panel-heading">
         Projects
         <a>
           <i class="fas fa-plus"></i>
@@ -34,6 +34,9 @@ export default {
 </script>
 
 <style scoped>
+  .panel-heading {
+    border-radius: 0;
+  }
   .panel-heading > a {
     margin-left: 1rem;
   }
