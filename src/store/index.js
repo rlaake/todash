@@ -75,6 +75,9 @@ export default new Vuex.Store({
     getActiveProject: (state) => {
       return state.seedData.find(project => project.active)
     },
+    getTask: (state) => (ids) => {
+      return state.seedData.find(project => project === ids.project).tasks[ids.task]
+    },
     getNavStatus: state => state.showNav,
     getNewProjectStatus: state => state.showNewProject,
     getNewTaskStatus: state => state.showNewTask

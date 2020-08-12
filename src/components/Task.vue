@@ -34,7 +34,11 @@ export default {
   props: ['task'],
   data () {
     return {
-      showButtons: false
+      showButtons: false,
+      ids: {
+        projectId: this.task.project,
+        taskId: this.$vnode.key
+      }
     }
   },
   methods: {
@@ -42,22 +46,14 @@ export default {
       this.showButtons = !this.showButtons
     },
     toggleComplete () {
-      const ids = {
-        projectId: this.task.project,
-        taskId: this.$vnode.key
-      }
       if (this.task.finished) {
-        this.$store.dispatch('setTaskUnfinished', ids)
+        this.$store.dispatch('setTaskUnfinished', this.ids)
       } else {
-        this.$store.dispatch('setTaskFinished', ids)
+        this.$store.dispatch('setTaskFinished', this.ids)
       }
     },
     deleteTask () {
-      const ids = {
-        projectId: this.task.project,
-        taskId: this.$vnode.key
-      }
-      this.$store.dispatch('deleteTask', ids)
+      this.$store.dispatch('deleteTask', this.ids)
     }
   },
   computed: {

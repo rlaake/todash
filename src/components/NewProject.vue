@@ -22,7 +22,7 @@
           <button class="button is-link">Submit</button>
         </div>
         <div class="control">
-          <button class="button is-link is-light">Cancel</button>
+          <button class="button is-link is-light" v-on:click="closeModal">Cancel</button>
         </div>
       </div>
     </div>
