@@ -7,15 +7,19 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     seedData,
+    activeTask: undefined,
     showNav: false,
     showNewProject: false,
     showNewTask: false
   },
   mutations: {
-    SET_ACTIVE_PROJECT (state, id) {
+    SET_ACTIVE_PROJECT (state, payload) {
       state.seedData.map((project) => {
-        project.id === id ? project.active = true : project.active = false
+        project.id === payload ? project.active = true : project.active = false
       })
+    },
+    SET_ACTIVE_TASK (state, payload) {
+      state.activeTask = state.seedData.find(project => project.id === payload.projectId).tasks[payload.taskId]
     },
     SET_TASK_FINISHED (state, payload) {
       state.seedData.find(project => project.id === payload.projectId).tasks[payload.taskId].finished = true
@@ -23,8 +27,14 @@ export default new Vuex.Store({
     SET_TASK_UNFINISHED (state, payload) {
       state.seedData.find(project => project.id === payload.projectId).tasks[payload.taskId].finished = false
     },
+    SET_NAV_STATUS (state, payload) {
+      state.showNav = payload
+    },
     DELETE_TASK (state, payload) {
       state.seedData.find(project => project.id === payload.projectId).tasks.splice(payload.taskId, 1)
+    },
+    DELETE_ACTIVE_TASK (state) {
+      state.activeTask = undefined
     },
     TOGGLE_NAV (state) {
       state.showNav = !state.showNav
@@ -34,9 +44,6 @@ export default new Vuex.Store({
     },
     TOGGLE_NEW_TASK (state) {
       state.showNewTask = !state.showNewTask
-    },
-    SET_NAV_STATUS (state, payload) {
-      state.showNav = payload
     }
   },
   actions: {
@@ -49,8 +56,17 @@ export default new Vuex.Store({
     setTaskUnfinished ({ commit }, ids) {
       commit('SET_TASK_UNFINISHED', ids)
     },
+    setNav ({ commit }, status) {
+      commit('SET_NAV_STATUS', status)
+    },
+    setActiveTask ({ commit }, ids) {
+      commit('SET_ACTIVE_TASK', ids)
+    },
     deleteTask ({ commit }, ids) {
       commit('DELETE_TASK', ids)
+    },
+    deleteActiveTask ({ commit }) {
+      commit('DELETE_ACTIVE_TASK')
     },
     toggleNav ({ commit }) {
       commit('TOGGLE_NAV')
@@ -60,9 +76,6 @@ export default new Vuex.Store({
     },
     toggleNewTask ({ commit }) {
       commit('TOGGLE_NEW_TASK')
-    },
-    setNav ({ commit }, status) {
-      commit('SET_NAV_STATUS', status)
     }
   },
   modules: {
@@ -78,6 +91,7 @@ export default new Vuex.Store({
     getTask: (state) => (ids) => {
       return state.seedData.find(project => project === ids.project).tasks[ids.task]
     },
+    getActiveTask: (state) => state.activeTask,
     getNavStatus: state => state.showNav,
     getNewProjectStatus: state => state.showNewProject,
     getNewTaskStatus: state => state.showNewTask

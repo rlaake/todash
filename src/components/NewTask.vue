@@ -6,29 +6,22 @@
       <div class="field">
         <label class="label">Title</label>
         <div class="control">
-          <input class="input" type="text" placeholder="Task title">
+          <input class="input" type="text" placeholder="Task title" v-bind:value="activeTask.title">
         </div>
       </div>
 
       <div class="field">
         <label class="label">Description</label>
         <div class="control">
-          <input class="input" type="text" placeholder="Task description">
+          <input class="input" type="text" placeholder="Task description" v-bind:value="activeTask.description">
         </div>
       </div>
 
       <div class="field">
         <label class="label">Due Date</label>
-        <div class="control has-icons-left has-icons-right">
-          <input class="input is-danger" type="email" placeholder="(MM/DD/YYYY)">
-          <span class="icon is-small is-left">
-            <i class="fas fa-calendar"></i>
-          </span>
-          <span class="icon is-small is-right">
-            <i class="fas fa-exclamation-triangle"></i>
-          </span>
+        <div class="control">
+          <input class="input" type="date" placeholder="(MM/DD/YYYY)" v-bind:value="activeTask.dueDate">
         </div>
-        <p class="help is-danger">This date is invalid</p>
       </div>
 
       <div class="field">
@@ -36,8 +29,8 @@
         <div class="control">
           <div class="select">
             <select>
-              <option>High</option>
-              <option>Low</option>
+              <option v-bind:selected="activeTask.important">High</option>
+              <option v-bind:selected="!activeTask.important">Low</option>
             </select>
           </div>
         </div>
@@ -48,11 +41,13 @@
           <button class="button is-link">Submit</button>
         </div>
         <div class="control">
-          <button class="button is-link is-light">Cancel</button>
+          <button class="button is-link is-light" v-on:click="closeModal">Cancel</button>
         </div>
       </div>
     </div>
+
     <button class="modal-close is-large" aria-label="close" v-on:click="closeModal"></button>
+
   </div>
 </template>
 
@@ -62,11 +57,30 @@ export default {
   methods: {
     closeModal () {
       this.$store.dispatch('toggleNewTask')
+      this.$store.dispatch('deleteActiveTask')
     }
   },
   computed: {
     showModal () {
       return this.$store.getters.getNewTaskStatus
+    },
+    activeTask () {
+      const activeTask = this.$store.getters.getActiveTask
+      if (activeTask) {
+        return {
+          title: activeTask.title,
+          description: activeTask.description,
+          dueDate: activeTask.dueDate.toISOString().split('T')[0],
+          important: activeTask.important
+        }
+      } else {
+        return {
+          title: '',
+          description: '',
+          dueDate: new Date().toISOString().split('T')[0],
+          important: false
+        }
+      }
     }
   }
 }
