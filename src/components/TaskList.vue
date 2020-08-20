@@ -3,9 +3,9 @@
     <div class="scroll-container">
       <nav class="level is-mobile">
         <div class="level-left">
-          <a class="level-item">
+          <div class="level-item">
             <span class="is-size-3">{{activeProject.title}}</span>
-          </a>
+          </div>
           <a class="level-item">
             <span class="icon is-size-5"><i class="fas fa-calendar"></i></span>
           </a>
@@ -14,8 +14,8 @@
       <Task v-for="(task, index) in activeProject.tasks" v-bind:task="task" v-bind:key="index"></Task>
       <div class="panel-heading">
         Add Task
-        <a v-on:click="showModal">
-          <i class="fas fa-plus"></i>
+        <a>
+          <i class="fas fa-plus" v-bind:class="{'is-hidden': UIIsEditing}" v-on:click="toggleUIIsEditing(); addTask();"></i>
         </a>
       </div>
     </div>
@@ -23,21 +23,18 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 import Task from './Task.vue'
 export default {
   name: 'TaskList',
   components: {
     Task
   },
-  methods: {
-    showModal () {
-      this.$store.dispatch('toggleNewTask')
-    }
-  },
   computed: {
-    activeProject () {
-      return this.$store.getters.getActiveProject
-    }
+    ...mapGetters(['UIIsEditing', 'activeProject', 'haveProjects'])
+  },
+  methods: {
+    ...mapActions(['toggleNav', 'toggleUIIsEditing', 'addTask'])
   }
 }
 </script>
@@ -60,5 +57,8 @@ export default {
 }
 .fa-plus {
   padding-left: 0.5rem;
+}
+.is-size-3 {
+  font-weight: 700
 }
 </style>

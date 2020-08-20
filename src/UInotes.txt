@@ -1,0 +1,114 @@
+NO PROJECTS ANY SCREEN-WIDTH:
+  - show ProjectList component 12 columns
+  - hide TaskList component
+  - hide hamburger on screen < 1024
+
+  ProjectList Classes: ''
+  TaskList Classes:    is-hidden: true
+  Burger Classes:      is-active: false, is-hidden: true
+
+ADD PROJECT SCREEN-WIDTH >= 1024px:
+  - show ProjectList component 2 columns
+  - show TaskList component 10 columns
+  - hide hamburger
+
+  ProjectList Classes: 'is-2 is-hidden-touch'
+  TaskList Classes:    is-hidden: false
+  Burger Classes:      is-active: false, is-hidden: false
+
+ADD PROJECT SCREEN-WIDTH < 1024px:
+  - hide ProjectList component
+  - show TaskList component 12 columns
+  - show hamburger
+
+  ProjectList Classes: 'is-2 is-hidden-touch'
+  TaskList Classes:    is-hidden: false
+  Burger Classes:      is-active: false, is-hidden: false
+
+SCREEN-WIDTH >= 1024px W/PROJECTS:
+  - show ProjectList component 2 columns
+  - show TaskList component 10 columns
+  - hide hamburger
+
+  ProjectList Classes: is-2 is-hidden-touch
+  TaskList Classes:    is-hidden: false
+  Burger Classes:      is-active: false, is-hidden: false
+
+SCREEN-WIDTH >= 1024px W/PROJECTS && PROJECT CLICKED:
+  - show ProjectList component 2 columns
+  - show TaskList component 10 columns
+  - hide hamburger
+
+  ProjectList Classes: is-2 is-hidden-touch
+  TaskList Classes:    is-hidden: false
+  Burger Classes:      is-active: false, is-hidden: false
+
+SCREEN-WIDTH < 1024px W/PROJECTS & HAMBURGER NOT CLICKED:
+  - hide ProjectList component 
+  - show TaskList component 12 columns
+  - show hamburger
+
+  ProjectList Classes: is-2 is-hidden-touch
+  TaskList Classes:    is-hidden: false
+  Burger Classes:      is-active: false, is-hidden: false
+
+SCREEN-WIDTH < 1024px W/PROJECTS && HAMBURGER CLICKED:
+  - show ProjectList component 12 columns
+  - hide TaskList component
+  - show x
+
+  ProjectList Classes: ''
+  TaskList Classes:    is-hidden: true
+  Burger Classes:      is-active: true, is-hidden: false
+
+SCREEN-WIDTH < 1024px W/PROJECTS && X CLICKED:
+  - hide ProjectList component
+  - show TaskList component 12 columns
+  - show hamburger
+
+  ProjectList Classes: is-2 is-hidden-touch
+  TaskList Classes:    is-hidden: false
+  Burger Classes:      is-active: false , is-hidden: false
+
+SCREEN-WIDTH < 1024px W/PROJECTS && HAMBURGER CLICKED && PROJECT CLICKED:
+  - hide ProjectList component
+  - show TaskList component 12 columns
+  - show hamburger
+
+  ProjectList Classes: is-2 is-hidden-touch
+  TaskList Classes:    is-hidden: false
+  Burger Classes:      is-active: false , is-hidden: false
+
+*************************************************
+
+ProjectList Classes:  
+    CONTROL                  -> on navActive, on !haveProjects
+    SET ''                   -> on hamburger click, on no projects
+
+    CONTROL                  -> on !navActive, on haveProjects, 
+    SET is-2 is-hidden-touch -> on x click, on add project, on project click
+
+*************************************************
+
+TaskList Class is-hidden: 
+    CONTROL   -> !haveProjects OR navActive
+    SET TRUE  -> on hamburger click, on no projects
+    SET FALSE -> on x click, on project click, on add project
+
+*************************************************
+
+Burger Class is-hidden: 
+    CONTROL   -> !haveProjects
+    SET TRUE  -> on no projects
+    SET FALSE -> on add project
+             
+Burger Class is-active: 
+    CONTROL   -> navActive
+    SET TRUE  -> on hamburger click
+    SET FALSE -> on x click, on project click
+             
+*************************************************
+
+hamburger click -> set navActive true, set ProjectList class ''
+x click         -> set navActive false, set ProjectList class is-2 is-hidden-touch
+project click   -> set navActive false, set ProjectList class is-2 is-hidden-touch

@@ -1,48 +1,45 @@
 <template>
   <div id="app">
-    <Navigation v-on:toggle-nav="toggleNav()"></Navigation>
-    <div class="columns is-mobile is-marginless" v-bind:class="{'is-hidden': showNav()}">
-      <ProjectList class-list="is-2 is-hidden-touch"></ProjectList>
-      <TaskList></TaskList>
+    <Navigation></Navigation>
+    <div class="columns is-mobile is-marginless">
+      <ProjectList></ProjectList>
+      <TaskList v-bind:class="{'is-hidden': !haveProjects || navActive}"></TaskList>
     </div>
-    <NewProject></NewProject>
-    <NewTask></NewTask>
   </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 import Navigation from './components/Navigation.vue'
 import ProjectList from './components/ProjectList.vue'
 import TaskList from './components/TaskList.vue'
-import NewProject from './components/NewProject.vue'
-import NewTask from './components/NewTask.vue'
 
 export default {
   name: 'App',
   components: {
     Navigation,
     ProjectList,
-    TaskList,
-    NewProject,
-    NewTask
+    TaskList
   },
-  created () {
-    window.addEventListener('resize', this.checkForActiveNav)
-  },
-  destroyed () {
-    window.removeEventListener('resize', this.checkForActiveNav)
+  computed: {
+    ...mapGetters(['haveProjects', 'navActive', 'projectListClasses'])
   },
   methods: {
-    toggleNav () {
-      this.$store.dispatch('toggleNav')
-    },
-    checkForActiveNav () {
-      if (window.innerWidth > 1011 && this.showNav()) {
-        this.$store.dispatch('setNav', false)
+    ...mapActions(['setNavActive', 'setProjectListClasses', 'toggleNav']),
+    resizeListenerCB () {
+      if (window.innerWidth > 1023 && this.haveProjects) {
+        this.setProjectListClasses('is-2 is-hidden-touch')
+        this.setNavActive(false)
       }
-    },
-    showNav () {
-      return this.$store.getters.getNavStatus
+    }
+  },
+  mounted () {
+    window.addEventListener('resize', this.resizeListenerCB)
+  },
+  updated () {
+    if (!this.haveProjects) {
+      this.setProjectListClasses('')
+      this.setNavActive(false)
     }
   }
 }
