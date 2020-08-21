@@ -22,14 +22,17 @@ export default {
     TaskList
   },
   computed: {
-    ...mapGetters(['haveProjects', 'navActive', 'projectListClasses'])
+    ...mapGetters(['haveProjects', 'navActive', 'projectListClasses', 'projectIsEditing'])
   },
   methods: {
     ...mapActions(['setNavActive', 'setProjectListClasses', 'toggleNav']),
     resizeListenerCB () {
-      if (window.innerWidth > 1023 && this.haveProjects) {
+      if (window.innerWidth > 1023 && this.haveProjects && !this.projectIsEditing) {
         this.setProjectListClasses('is-2 is-hidden-touch')
         this.setNavActive(false)
+      } else if (window.innerWidth <= 1023 && this.projectIsEditing) {
+        this.setProjectListClasses('')
+        this.setNavActive(true)
       }
     }
   },

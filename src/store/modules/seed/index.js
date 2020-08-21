@@ -48,7 +48,7 @@ const actions = {
       color: '#000000',
       active: active,
       editing: true,
-      tasks: {},
+      tasks: [],
       newProject: true
     })
     commit('UPDATE_PROJECTS', projects)
@@ -71,7 +71,8 @@ const actions = {
       color: project.color,
       projectId: project.id,
       id: id,
-      editing: true
+      editing: true,
+      newTask: true
     })
     commit('UPDATE_PROJECT', project)
   },
@@ -97,6 +98,13 @@ const actions = {
     const task = this.getters.task({ projectId: target.projectId, taskId: target.id })
     task.finished = !task.finished
     const proj = this.getters.project(target.projectId)
+    proj.tasks.sort((a, b) => a.id - b.id)
+    proj.tasks.sort((a, b) => {
+      if (!a.finished && b.finished) return -1
+      else if ((a.finished && b.finished) || (!a.finished && !b.finished)) return 0
+      else return 1
+    })
+    task.showButtons = true
     commit('UPDATE_PROJECT', proj)
   },
   deleteTask ({ commit }, target) {
@@ -109,14 +117,20 @@ const actions = {
 
 const getters = {
   allProjects: state => state.seedData,
-  task: (state) => (ids) => state.seedData.find(project => project.id === ids.projectId).tasks[ids.taskId],
+  task: (state) => (ids) => state.seedData.find(project => project.id === ids.projectId).tasks.find(t => t.id === ids.taskId),
   project: (state) => (id) => state.seedData.find(project => project.id === id),
   activeProject: (state) => {
     const ap = state.seedData.find(project => project.active)
     if (!ap) return {}
     else return ap
   },
-  haveProjects: (state) => state.seedData.length > 0
+  haveProjects: (state) => state.seedData.length > 0,
+  projectIsEditing: (state) => {
+    for (const project of state.seedData) {
+      if (project.editing) return true
+    }
+    return false
+  }
 }
 
 const seedModule = {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <article v-if="!task.editing" class="media" v-on:mouseover="toggleButtons" v-on:mouseout="toggleButtons">
+    <article v-if="!task.editing" class="media" v-on:mouseover="showButtons" v-on:mouseout="hideButtons">
       <figure class="media-left is-size-4">
         <i class="far fa-dot-circle" v-bind:style="{color: task.color}" v-bind:class="{'is-hidden': task.finished}"></i>
         <i class="fas fa-check-circle" v-bind:style="{color: task.color}" v-bind:class="{'is-hidden': !task.finished}"></i>
@@ -26,8 +26,8 @@
         </div>
       </div>
 
-      <div class="buttons media-right" v-bind:class="{'is-hidden': !showButtons || UIIsEditing}">
-        <button class="button is-text" v-if="!task.finished" v-on:click='toggleTaskFinished(task)'>
+      <div class="buttons media-right" v-bind:class="{'is-hidden': !buttonsVisible || UIIsEditing}">
+        <button class="button is-text" v-if="!task.finished" v-on:click='toggleTaskFinished(task); hideButtons();'>
           <i class="fas fa-check"></i>
         </button>
         <button class="button is-text" v-else v-on:click='toggleTaskFinished(task)'>
@@ -58,7 +58,10 @@
         <button class="button is-text" v-bind:disabled="!hasTitle" v-on:click="toggleTaskIsEditing(); toggleUIIsEditing(); submitEdit();">
           <i class="fas fa-check"></i>
         </button>
-        <button class="button is-text" v-on:click="toggleTaskIsEditing(); toggleUIIsEditing(); cancelEdit()">
+        <button class="button is-text" v-if="task.newTask" v-on:click=" deleteTask(task); toggleUIIsEditing();">
+          <i class="fas fa-trash-alt"></i>
+        </button>
+        <button class="button is-text" v-else v-on:click="toggleTaskIsEditing(); toggleUIIsEditing(); cancelEdit()">
           <i class="fas fa-times"></i>
         </button>
       </div>
@@ -73,7 +76,7 @@ export default {
   props: ['task'],
   data () {
     return {
-      showButtons: false,
+      buttonsVisible: false,
       editTitle: this.task.title,
       editDueDate: this.task.dueDate,
       editImportant: this.task.important,
@@ -95,11 +98,11 @@ export default {
   },
   methods: {
     ...mapActions(['toggleTaskFinished', 'toggleUIIsEditing', 'deleteTask', 'editTask']),
-    toggleButtons () {
-      this.showButtons = !this.showButtons
+    showButtons () {
+      this.buttonsVisible = true
     },
     hideButtons () {
-      this.$emit('mouseout')
+      this.buttonsVisible = false
     },
     toggleTaskIsEditing () {
       this.task.editing = !this.task.editing
@@ -112,13 +115,13 @@ export default {
         id: this.task.id,
         projectId: this.task.projectId
       })
-      this.showButtons = false
+      this.buttonsVisible = false
     },
     cancelEdit () {
       this.editTitle = this.task.title
       this.editDueDate = this.task.dueDate
       this.editImportant = this.task.important
-      this.showButtons = false
+      this.buttonsVisible = false
     }
   }
 }

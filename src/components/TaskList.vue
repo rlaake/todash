@@ -11,7 +11,7 @@
           </a>
         </div>
       </nav>
-      <Task v-for="(task, index) in activeProject.tasks" v-bind:task="task" v-bind:key="index"></Task>
+      <Task v-for="task in activeProject.tasks" v-bind:task="task" v-bind:key="task.id"></Task>
       <div class="panel-heading">
         Add Task
         <a>

@@ -88,7 +88,6 @@ export default {
         id: this.project.id
       })
       this.showButtons = true
-      this.UIWidthCheck()
     },
     cancelEdit () {
       this.editTitle = this.project.title

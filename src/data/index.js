@@ -15,7 +15,8 @@ export const seedData = [
         color: '#00A000',
         projectId: 0,
         id: 0,
-        editing: false
+        editing: false,
+        newTask: false
       },
       {
         title: 'Cooking Task 2',
@@ -25,7 +26,8 @@ export const seedData = [
         color: '#00A000',
         projectId: 0,
         id: 1,
-        editing: false
+        editing: false,
+        newTask: false
       },
       {
         title: 'Cooking Task 3',
@@ -35,7 +37,8 @@ export const seedData = [
         color: '#00A000',
         projectId: 0,
         id: 2,
-        editing: false
+        editing: false,
+        newTask: false
       }
     ]
   },
@@ -55,7 +58,8 @@ export const seedData = [
         color: '#FF0000',
         projectId: 1,
         id: 0,
-        editing: false
+        editing: false,
+        newTask: false
       },
       {
         title: 'Cleaning Task 2',
@@ -65,7 +69,8 @@ export const seedData = [
         color: '#FF0000',
         projectId: 1,
         id: 1,
-        editing: false
+        editing: false,
+        newTask: false
       },
       {
         title: 'Cleaning Task 3',
@@ -75,7 +80,8 @@ export const seedData = [
         color: '#FF0000',
         projectId: 1,
         id: 2,
-        editing: false
+        editing: false,
+        newTask: false
       }
     ]
   },
@@ -95,7 +101,8 @@ export const seedData = [
         color: '#AACCEE',
         projectId: 2,
         id: 0,
-        editing: false
+        editing: false,
+        newTask: false
       },
       {
         title: 'Work Task 2',
@@ -105,7 +112,8 @@ export const seedData = [
         color: '#AACCEE',
         projectId: 2,
         id: 1,
-        editing: false
+        editing: false,
+        newTask: false
       },
       {
         title: 'Work Task 3',
@@ -115,7 +123,8 @@ export const seedData = [
         color: '#AACCEE',
         projectId: 2,
         id: 2,
-        editing: false
+        editing: false,
+        newTask: false
       }
     ]
   }
