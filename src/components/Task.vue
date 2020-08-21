@@ -42,11 +42,14 @@
       </div>
     </article>
 
-    <article v-else>
+    <article  id="edit-task" v-else>
       <div class="media-content">
         <div class="content">
+          <label class="label">Title</label>
           <input v-model="editTitle" placeholder="Enter title"/>
+          <label class="label">Due Date</label>
           <input type="date" v-model="editDueDate"/>
+          <label class="label">Important</label>
           <select v-model="editImportant">
             <option v-bind:value="options.true">True</option>
             <option v-bind:value="options.false">False</option>
@@ -135,6 +138,9 @@ export default {
   .media {
     margin-top: 0 !important;
   }
+  .media:hover {
+    box-shadow: inset 2px 2px 2px #bebebe;
+  }
   .media-left {
     align-self: center;
     padding-top: 0;
@@ -166,5 +172,13 @@ export default {
   button:focus:not(:active) {
     box-shadow: none;
     outline: none;
+  }
+  #edit-task {
+    display: flex;
+    border-top: 1px solid #bebebe;
+    border-bottom: 1px solid #bebebe;
+  }
+  .label {
+    padding-top: .5rem;
   }
 </style>
