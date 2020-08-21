@@ -130,6 +130,18 @@ const getters = {
       if (project.editing) return true
     }
     return false
+  },
+  tasksByDate: (state) => (date) => {
+    const tasks = []
+    if (date === '') return tasks
+    for (const proj of state.seedData) {
+      for (const t of proj.tasks) {
+        if (t.dueDate === date) {
+          tasks.push(t)
+        }
+      }
+    }
+    return tasks
   }
 }
 

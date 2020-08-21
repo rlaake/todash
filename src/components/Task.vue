@@ -57,14 +57,14 @@
         </div>
       </div>
 
-      <div class="buttons media-right">
-        <button class="button is-text" v-bind:disabled="!hasTitle" v-on:click="toggleTaskIsEditing(); toggleUIIsEditing(); submitEdit();">
+      <div class="buttons media-right editButtons">
+        <button class="button is-text editButton" v-bind:disabled="!hasTitle" v-on:click="toggleTaskIsEditing(); toggleUIIsEditing(); submitEdit();">
           <i class="fas fa-check"></i>
         </button>
-        <button class="button is-text" v-if="task.newTask" v-on:click=" deleteTask(task); toggleUIIsEditing();">
+        <button class="button is-text editButton" v-if="task.newTask" v-on:click=" deleteTask(task); toggleUIIsEditing();">
           <i class="fas fa-trash-alt"></i>
         </button>
-        <button class="button is-text" v-else v-on:click="toggleTaskIsEditing(); toggleUIIsEditing(); cancelEdit()">
+        <button class="button is-text editButton" v-else v-on:click="toggleTaskIsEditing(); toggleUIIsEditing(); cancelEdit()">
           <i class="fas fa-times"></i>
         </button>
       </div>
@@ -139,7 +139,8 @@ export default {
     margin-top: 0 !important;
   }
   .media:hover {
-    box-shadow: inset 2px 2px 2px #bebebe;
+    box-shadow: inset 3px 3px 3px #bebebe;
+    background-color: #eaeaea;
   }
   .media-left {
     align-self: center;
@@ -158,7 +159,7 @@ export default {
   .buttons {
     align-self: center;
     margin-bottom: 0 !important;
-    background-color: whitesmoke;
+    background-color: #eaeaea;
   }
   button.button {
     margin-bottom: 0 !important;
@@ -168,10 +169,15 @@ export default {
   }
   button.is-text {
     text-decoration: none !important;
+    /* background-color: #eaeaea; */
+  }
+  button.is-text:hover {
+    background-color: #eaeaea;
   }
   button:focus:not(:active) {
     box-shadow: none;
     outline: none;
+    background-color: #eaeaea;
   }
   #edit-task {
     display: flex;
@@ -180,5 +186,17 @@ export default {
   }
   .label {
     padding-top: .5rem;
+  }
+  .editButtons {
+    background-color: whitesmoke;
+  }
+  button.editButton {
+    background-color: whitesmoke;
+  }
+  button.editButton:hover {
+    background-color: whitesmoke;
+  }
+  button.editButton:focus:not(:active) {
+    background-color: whitesmoke;
   }
 </style>
