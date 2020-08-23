@@ -7,7 +7,7 @@
       <span class="panel-icon">
         <i class="far fa-dot-circle" v-bind:style="projectColor"></i>
       </span>
-      <span id="project-title" v-on:click="setProjectActive(project); UIWidthCheck();">{{project.title}}</span>
+      <span id="project-title" v-on:click="setProjectActive(project); UIWidthCheck(); resetDate();">{{project.title}}</span>
 
       <div class="buttons" v-bind:class="{'is-hidden': !showButtons || UIIsEditing}">
         <button class="button is-text" v-on:click="toggleProjectIsEditing(); toggleUIIsEditing();">
@@ -72,7 +72,7 @@ export default {
   },
   methods: {
     ...mapActions([
-      'setNavActive', 'setProjectListClasses',
+      'setNavActive', 'setProjectListClasses', 'resetDate',
       'toggleUIIsEditing', 'setProjectActive', 'editProject', 'deleteProject'
     ]),
     toggleButtons () {

@@ -1,24 +1,53 @@
 <template>
   <div class="column is-paddingless">
-    <div class="scroll-container" v-if="!dateHasTasks">
+    <div class="scroll-container" v-if="haveActiveProject">
       <nav class="level is-mobile">
         <div class="level-left">
           <div class="level-item">
             <span class="is-size-3">{{activeProject.title}}</span>
           </div>
           <a class="level-item">
-            <span class="icon is-size-5"><i class="fas fa-calendar"></i><input id="date-picker" v-model="date" type="date"></span>
+            <span class="icon is-size-5"><i class="fas fa-calendar"></i><input id="date-picker" v-on:change="handleDate" type="date"></span>
           </a>
         </div>
       </nav>
       <Task v-for="task in activeProject.tasks" v-bind:task="task" v-bind:key="task.id"></Task>
-      <div class="panel-heading">
+      <div class="panel-heading" v-bind:class="{'is-hidden': UIIsEditing}">
         Add Task
         <a>
-          <i class="fas fa-plus" v-bind:class="{'is-hidden': UIIsEditing}" v-on:click="toggleUIIsEditing(); addTask();"></i>
+          <i class="fas fa-plus" v-on:click="toggleUIIsEditing(); addTask();"></i>
         </a>
       </div>
     </div>
+
+    <div class="scroll-container" v-else-if="dateHasTasks">
+      <nav class="level is-mobile">
+        <div class="level-left">
+          <div class="level-item">
+            <span class="is-size-3">{{date}}</span>
+          </div>
+          <a class="level-item">
+            <span class="icon is-size-5"><i class="fas fa-calendar"></i><input id="date-picker" v-on:change="handleDate" type="date"></span>
+          </a>
+        </div>
+      </nav>
+      <Task v-for="(task, index) in tasksByDate(date)" v-bind:task="task" v-bind:key="index"></Task>
+    </div>
+
+    <div class="scroll-container" v-else>
+      <nav class="level is-mobile">
+        <div class="level-left">
+          <div class="level-item">
+            <span class="is-size-3">{{date}}</span>
+          </div>
+          <a class="level-item">
+            <span class="icon is-size-5"><i class="fas fa-calendar"></i><input id="date-picker" v-on:change="handleDate" type="date"></span>
+          </a>
+        </div>
+      </nav>
+      Nothing planned for this date.
+    </div>
+
   </div>
 </template>
 
@@ -27,22 +56,24 @@ import { mapGetters, mapActions } from 'vuex'
 import Task from './Task.vue'
 export default {
   name: 'TaskList',
-  data () {
-    return {
-      date: ''
-    }
-  },
   components: {
     Task
   },
   computed: {
-    ...mapGetters(['UIIsEditing', 'activeProject', 'haveProjects', 'tasksByDate']),
+    ...mapGetters(['UIIsEditing', 'activeProject', 'haveProjects', 'tasksByDate', 'date']),
     dateHasTasks () {
       return this.tasksByDate(this.date).length > 0
+    },
+    haveActiveProject () {
+      return Object.keys(this.activeProject).length > 0
     }
   },
   methods: {
-    ...mapActions(['toggleNav', 'toggleUIIsEditing', 'addTask'])
+    ...mapActions(['toggleNav', 'toggleUIIsEditing', 'addTask', 'setDate', 'resetProjectActive']),
+    handleDate (event) {
+      this.setDate(event.target.value)
+      this.resetProjectActive()
+    }
   }
 }
 </script>

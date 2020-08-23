@@ -4,7 +4,8 @@ const state = {
   today: new Date().toLocaleDateString(),
   UIIsEditing: false,
   showProjectButtons: false,
-  showTaskButtons: false
+  showTaskButtons: false,
+  date: ''
 
 }
 
@@ -23,6 +24,12 @@ const mutations = {
   },
   TOGGLE_IS_EDITING (state) {
     state.UIIsEditing = !state.UIIsEditing
+  },
+  RESET_DATE (state) {
+    state.date = ''
+  },
+  SET_DATE (state, payload) {
+    state.date = payload
   }
 }
 
@@ -39,6 +46,12 @@ const actions = {
   },
   toggleUIIsEditing ({ commit }) {
     commit('TOGGLE_IS_EDITING')
+  },
+  resetDate ({ commit }) {
+    commit('RESET_DATE')
+  },
+  setDate ({ commit }, date) {
+    commit('SET_DATE', date)
   }
 }
 
@@ -48,7 +61,8 @@ const getters = {
   today: state => state.today,
   UIIsEditing: state => state.UIIsEditing,
   showProjectButtons: state => state.showProjectButtons,
-  showTaskButtons: state => state.showTaskButtons
+  showTaskButtons: state => state.showTaskButtons,
+  date: state => state.date
 }
 
 const seedModule = {

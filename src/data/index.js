@@ -39,6 +39,17 @@ export const seedData = [
         id: 2,
         editing: false,
         newTask: false
+      },
+      {
+        title: 'NYE Cooking',
+        dueDate: '2020-12-31',
+        important: false,
+        finished: false,
+        color: '#00A000',
+        projectId: 0,
+        id: 3,
+        editing: false,
+        newTask: false
       }
     ]
   },
@@ -82,6 +93,17 @@ export const seedData = [
         id: 2,
         editing: false,
         newTask: false
+      },
+      {
+        title: 'NYE Cleaning Task',
+        dueDate: '2020-12-31',
+        important: true,
+        finished: false,
+        color: '#FF0000',
+        projectId: 1,
+        id: 3,
+        editing: false,
+        newTask: false
       }
     ]
   },
@@ -123,6 +145,17 @@ export const seedData = [
         color: '#AACCEE',
         projectId: 2,
         id: 2,
+        editing: false,
+        newTask: false
+      },
+      {
+        title: 'NYE! No Working!',
+        dueDate: '2021-12-31',
+        important: false,
+        finished: false,
+        color: '#AACCEE',
+        projectId: 2,
+        id: 3,
         editing: false,
         newTask: false
       }
