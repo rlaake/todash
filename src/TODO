@@ -1,7 +1,2 @@
-sort tasks by inportant / finished on load / edit/ delete / add
-display no tasks for date selected
-listen for enter key in addition to clicks
-handle mobile touch events & how buttons appear
 figure out log in & username password stuff
 build back end and send receive data
-click a date, delete the only task on that date, add task and it will be added to that date, need to reset active project?

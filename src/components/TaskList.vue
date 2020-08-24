@@ -45,7 +45,7 @@
           </a>
         </div>
       </nav>
-      Nothing planned for this date.
+      <span class="is-size-5 no-tasks">Nothing planned for this date.</span>
     </div>
 
   </div>
@@ -106,5 +106,11 @@ export default {
   right: 1.2rem;
   cursor: pointer;
   min-width: 1.3rem;
+}
+.no-tasks {
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin-top: 3rem;
 }
 </style>

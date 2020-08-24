@@ -9,7 +9,16 @@
       </span>
       <span id="project-title" v-on:click="setProjectActive(project); UIWidthCheck(); resetDate();">{{project.title}}</span>
 
-      <div class="buttons" v-bind:class="{'is-hidden': !showButtons || UIIsEditing}">
+      <div class="buttons" v-if="isMobile" v-bind:class="{'is-hidden': UIIsEditing}">
+        <button class="button is-text" v-on:click="toggleProjectIsEditing(); toggleUIIsEditing();">
+          <i class="fas fa-edit"></i>
+        </button>
+        <button class="button is-text" v-on:click="deleteProject(project)">
+          <i class="fas fa-trash-alt"></i>
+        </button>
+      </div>
+
+      <div class="buttons" v-else v-bind:class="{'is-hidden': !showButtons || UIIsEditing}">
         <button class="button is-text" v-on:click="toggleProjectIsEditing(); toggleUIIsEditing();">
           <i class="fas fa-edit"></i>
         </button>
@@ -62,7 +71,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['UIIsEditing']),
+    ...mapGetters(['UIIsEditing', 'isMobile']),
     projectColor () {
       return 'color: ' + this.project.color
     },

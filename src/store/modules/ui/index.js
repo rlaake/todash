@@ -62,7 +62,27 @@ const getters = {
   UIIsEditing: state => state.UIIsEditing,
   showProjectButtons: state => state.showProjectButtons,
   showTaskButtons: state => state.showTaskButtons,
-  date: state => state.date
+  date: state => state.date,
+  isMobile () {
+    let touchScreen = false
+    if ('maxTouchPoints' in navigator) {
+      touchScreen = navigator.maxTouchPoints > 0
+    } else if ('msMaxTouchPoints' in navigator) {
+      touchScreen = navigator.maxTouchPoints > 0
+    } else {
+      const mQ = window.matchMedia && matchMedia('(pointer:coarse)')
+      if (mQ && mQ.media === '(pointer:coarse)') {
+        touchScreen = !!mQ.matches
+      } else if ('orientation' in window) {
+        touchScreen = true
+      } else {
+        const UA = navigator.userAgent
+        touchScreen = (/\b(BlackBerry|webOS|iPhone|IEMobile)\b/i.test(UA) || /\b(Android|Windows Phone|iPad|iPod)\b/i.test(UA))
+      }
+    }
+    const mQ2 = window.matchMedia && matchMedia('(max-width: 767px), (max-height: 767px)')
+    return ((touchScreen === true) && (mQ2.matches === true))
+  }
 }
 
 const seedModule = {

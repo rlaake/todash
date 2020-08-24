@@ -24,6 +24,21 @@
             <span class="finished-text">{{task.title}}</span>
           </p>
         </div>
+
+        <div class="content" v-if="isMobile">
+          <button class="button is-text" v-if="!task.finished" v-on:click='toggleTaskFinished(task)'>
+            <i class="fas fa-check"></i>
+          </button>
+          <button class="button is-text" v-else v-on:click='toggleTaskFinished(task)'>
+            <i class="fas fa-undo-alt"></i>
+          </button>
+          <button class="button is-text" v-on:click="toggleTaskIsEditing(); toggleUIIsEditing();">
+            <i class="fas fa-edit"></i>
+          </button>
+          <button class="button is-text" v-on:click="deleteTask(task)">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </div>
       </div>
 
       <div class="buttons media-right" v-bind:class="{'is-hidden': !buttonsVisible || UIIsEditing}">
@@ -90,7 +105,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['UIIsEditing']),
+    ...mapGetters(['UIIsEditing', 'isMobile']),
     date () {
       const x = this.task.dueDate.split(/\D+/)
       return x[1] + '/' + x[2] + '/' + x[0]
