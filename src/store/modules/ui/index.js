@@ -3,8 +3,6 @@ const state = {
   navActive: false,
   today: new Date().toLocaleDateString(),
   UIIsEditing: false,
-  showProjectButtons: false,
-  showTaskButtons: false,
   date: ''
 
 }
@@ -60,8 +58,6 @@ const getters = {
   navActive: state => state.navActive,
   today: state => state.today,
   UIIsEditing: state => state.UIIsEditing,
-  showProjectButtons: state => state.showProjectButtons,
-  showTaskButtons: state => state.showTaskButtons,
   date: state => state.date,
   isMobile () {
     let touchScreen = false

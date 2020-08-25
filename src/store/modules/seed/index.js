@@ -29,9 +29,11 @@ const actions = {
   resetProjectActive ({ dispatch, commit }) {
     dispatch('getProjects')
     const proj = this.getters.activeProject
-    proj.active = false
-    commit('UPDATE_PROJECT', proj)
-    window.localStorage.setItem('projects', JSON.stringify(this.getters.allProjects))
+    if (Object.keys(proj).length > 0) {
+      proj.active = false
+      commit('UPDATE_PROJECT', proj)
+      window.localStorage.setItem('projects', JSON.stringify(this.getters.allProjects))
+    }
   },
   addProject ({ dispatch, commit }) {
     dispatch('getProjects')
