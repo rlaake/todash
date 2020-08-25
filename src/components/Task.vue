@@ -1,12 +1,18 @@
 <template>
   <div>
+
+    <!-- task container, hide when editing task -->
     <article v-if="!task.editing" class="media" v-on:mouseover="showButtons" v-on:mouseout="hideButtons">
+
+      <!-- task bullet, changed on finished/unfinished -->
       <figure class="media-left is-size-4">
         <i class="far fa-dot-circle" v-bind:style="{color: task.color}" v-bind:class="{'is-hidden': task.finished}"></i>
         <i class="fas fa-check-circle" v-bind:style="{color: task.color}" v-bind:class="{'is-hidden': !task.finished}"></i>
       </figure>
 
       <div class="media-content">
+
+        <!-- Task info for unfinished tasks -->
         <div class="content" v-if="!task.finished">
           <p>
             <small class="warn" v-bind:class="{'is-hidden': !task.important}">!! Important </small>
@@ -17,6 +23,7 @@
           </p>
         </div>
 
+        <!-- Task info for finished task -->
         <div class="content" v-else>
           <p>
             <small>Finished</small>
@@ -25,6 +32,7 @@
           </p>
         </div>
 
+        <!-- Buttons for mobile layout, visibile at all times -->
         <div class="content" v-if="isMobile">
           <button class="button is-text" v-if="!task.finished" v-on:click='toggleTaskFinished(task)'>
             <i class="fas fa-check"></i>
@@ -32,15 +40,17 @@
           <button class="button is-text" v-else v-on:click='toggleTaskFinished(task)'>
             <i class="fas fa-undo-alt"></i>
           </button>
-          <button class="button is-text" v-on:click="toggleTaskIsEditing(); toggleUIIsEditing();">
+          <button class="button is-text" v-if="!task.finished" v-on:click="toggleTaskIsEditing(task); toggleUIIsEditing();">
             <i class="fas fa-edit"></i>
           </button>
           <button class="button is-text" v-on:click="deleteTask(task)">
             <i class="fas fa-trash-alt"></i>
           </button>
         </div>
+
       </div>
 
+      <!-- Buttons for desktop layout, visible on mouseover task event fired -->
       <div class="buttons media-right" v-bind:class="{'is-hidden': !buttonsVisible || UIIsEditing}">
         <button class="button is-text" v-if="!task.finished" v-on:click='toggleTaskFinished(task); hideButtons();'>
           <i class="fas fa-check"></i>
@@ -48,16 +58,20 @@
         <button class="button is-text" v-else v-on:click='toggleTaskFinished(task)'>
           <i class="fas fa-undo-alt"></i>
         </button>
-        <button class="button is-text" v-on:click="toggleTaskIsEditing(); toggleUIIsEditing();">
+        <button class="button is-text" v-if="!task.finished" v-on:click="toggleTaskIsEditing(task); toggleUIIsEditing();">
           <i class="fas fa-edit"></i>
         </button>
         <button class="button is-text" v-on:click="deleteTask(task)">
           <i class="fas fa-trash-alt"></i>
         </button>
       </div>
+
     </article>
 
+    <!-- Task container when editing task -->
     <article  id="edit-task" v-else>
+
+      <!-- Inputs for task edits -->
       <div class="media-content">
         <div class="content">
           <label class="label">Title</label>
@@ -72,17 +86,19 @@
         </div>
       </div>
 
+      <!-- Buttons for task edit -->
       <div class="buttons media-right editButtons">
-        <button class="button is-text editButton" v-bind:disabled="!hasTitle" v-on:click="toggleTaskIsEditing(); toggleUIIsEditing(); submitEdit();">
+        <button class="button is-text editButton" v-bind:disabled="!hasTitle" v-on:click="toggleTaskIsEditing(task); toggleUIIsEditing(); submitEdit();">
           <i class="fas fa-check"></i>
         </button>
         <button class="button is-text editButton" v-if="task.newTask" v-on:click=" deleteTask(task); toggleUIIsEditing();">
           <i class="fas fa-trash-alt"></i>
         </button>
-        <button class="button is-text editButton" v-else v-on:click="toggleTaskIsEditing(); toggleUIIsEditing(); cancelEdit()">
+        <button class="button is-text editButton" v-else v-on:click="toggleTaskIsEditing(task); toggleUIIsEditing(); cancelEdit()">
           <i class="fas fa-times"></i>
         </button>
       </div>
+
     </article>
   </div>
 </template>
@@ -115,15 +131,12 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['toggleTaskFinished', 'toggleUIIsEditing', 'deleteTask', 'editTask']),
+    ...mapActions(['toggleTaskFinished', 'toggleUIIsEditing', 'toggleTaskIsEditing', 'deleteTask', 'editTask']),
     showButtons () {
       this.buttonsVisible = true
     },
     hideButtons () {
       this.buttonsVisible = false
-    },
-    toggleTaskIsEditing () {
-      this.task.editing = !this.task.editing
     },
     submitEdit () {
       this.editTask({

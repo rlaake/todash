@@ -25,7 +25,7 @@ export default {
     ...mapGetters(['haveProjects', 'navActive', 'projectListClasses', 'projectIsEditing'])
   },
   methods: {
-    ...mapActions(['setNavActive', 'setProjectListClasses', 'toggleNav']),
+    ...mapActions(['setNavActive', 'setProjectListClasses', 'toggleNav', 'getProjects']),
     resizeListenerCB () {
       if (window.innerWidth > 1023 && this.haveProjects && !this.projectIsEditing) {
         this.setProjectListClasses('is-2 is-hidden-touch')
@@ -35,6 +35,9 @@ export default {
         this.setNavActive(true)
       }
     }
+  },
+  created () {
+    this.getProjects()
   },
   mounted () {
     window.addEventListener('resize', this.resizeListenerCB)

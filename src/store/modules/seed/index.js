@@ -1,7 +1,5 @@
-import { seedData } from '../../../data/index.js'
-
 const state = {
-  seedData
+  seedData: []
 }
 
 const mutations = {
@@ -14,20 +12,29 @@ const mutations = {
 }
 
 const actions = {
-  setProjectActive ({ commit }, project) {
+  getProjects ({ commit }) {
+    const projects = window.localStorage.getItem('projects')
+    if (projects) commit('UPDATE_PROJECTS', JSON.parse(projects))
+  },
+  setProjectActive ({ dispatch, commit }, project) {
+    dispatch('getProjects')
     const previousProject = this.getters.activeProject
     const activeProject = this.getters.allProjects.find(proj => proj.id === project.id)
     if (previousProject) previousProject.active = false
     activeProject.active = true
     commit('UPDATE_PROJECT', previousProject)
     commit('UPDATE_PROJECT', activeProject)
+    window.localStorage.setItem('projects', JSON.stringify(this.getters.allProjects))
   },
-  resetProjectActive ({ commit }) {
+  resetProjectActive ({ dispatch, commit }) {
+    dispatch('getProjects')
     const proj = this.getters.activeProject
     proj.active = false
     commit('UPDATE_PROJECT', proj)
+    window.localStorage.setItem('projects', JSON.stringify(this.getters.allProjects))
   },
-  addProject ({ commit }) {
+  addProject ({ dispatch, commit }) {
+    dispatch('getProjects')
     const projects = this.getters.allProjects
     projects.sort((a, b) => a.id - b.id)
     const onlyProject = projects.length === 0
@@ -43,8 +50,10 @@ const actions = {
       newProject: true
     })
     commit('UPDATE_PROJECTS', projects)
+    window.localStorage.setItem('projects', JSON.stringify(this.getters.allProjects))
   },
-  editProject ({ commit }, project) {
+  editProject ({ dispatch, commit }, project) {
+    dispatch('getProjects')
     const proj = this.getters.project(project.id)
     proj.title = project.title
     proj.color = project.color
@@ -53,8 +62,10 @@ const actions = {
       for (const task of proj.tasks) task.color = project.color
     }
     commit('UPDATE_PROJECT', proj)
+    window.localStorage.setItem('projects', JSON.stringify(this.getters.allProjects))
   },
-  deleteProject ({ commit }, project) {
+  deleteProject ({ dispatch, commit }, project) {
+    dispatch('getProjects')
     const projects = this.getters.allProjects
     const index = projects.findIndex(proj => proj.id === project.id)
     if (index !== -1) {
@@ -62,13 +73,23 @@ const actions = {
         projects.splice(index, 1)
         projects[0].active = true
         commit('UPDATE_PROJECTS', projects)
+        window.localStorage.setItem('projects', JSON.stringify(this.getters.allProjects))
       } else {
         projects.splice(index, 1)
         commit('UPDATE_PROJECTS', projects)
+        window.localStorage.setItem('projects', JSON.stringify(this.getters.allProjects))
       }
     }
   },
-  addTask ({ commit }) {
+  toggleProjectIsEditing ({ dispatch, commit }, project) {
+    dispatch('getProjects')
+    const proj = this.getters.project(project.id)
+    proj.editing = !proj.editing
+    commit('UPDATE_PROJECT', proj)
+    window.localStorage.setItem('projects', JSON.stringify(this.getters.allProjects))
+  },
+  addTask ({ dispatch, commit }) {
+    dispatch('getProjects')
     const proj = this.getters.activeProject
     proj.tasks.sort((a, b) => a.id - b.id)
     const onlyTask = proj.tasks.length === 0
@@ -101,8 +122,10 @@ const actions = {
       else return 1
     })
     commit('UPDATE_PROJECT', proj)
+    window.localStorage.setItem('projects', JSON.stringify(this.getters.allProjects))
   },
-  editTask ({ commit }, target) {
+  editTask ({ dispatch, commit }, target) {
+    dispatch('getProjects')
     const task = this.getters.task({ projectId: target.projectId, taskId: target.id })
     task.title = target.title
     task.dueDate = target.dueDate
@@ -120,8 +143,10 @@ const actions = {
       else return 1
     })
     commit('UPDATE_PROJECT', proj)
+    window.localStorage.setItem('projects', JSON.stringify(this.getters.allProjects))
   },
-  toggleTaskFinished ({ commit }, target) {
+  toggleTaskFinished ({ dispatch, commit }, target) {
+    dispatch('getProjects')
     const task = this.getters.task({ projectId: target.projectId, taskId: target.id })
     task.finished = !task.finished
     const proj = this.getters.project(target.projectId)
@@ -138,12 +163,23 @@ const actions = {
     })
     task.showButtons = true
     commit('UPDATE_PROJECT', proj)
+    window.localStorage.setItem('projects', JSON.stringify(this.getters.allProjects))
   },
-  deleteTask ({ commit }, target) {
+  deleteTask ({ dispatch, commit }, target) {
+    dispatch('getProjects')
     const proj = this.getters.project(target.projectId)
     const taskIndex = proj.tasks.findIndex(task => task.id === target.id)
     proj.tasks.splice(taskIndex, 1)
     commit('UPDATE_PROJECT', proj)
+    window.localStorage.setItem('projects', JSON.stringify(this.getters.allProjects))
+  },
+  toggleTaskIsEditing ({ dispatch, commit }, task) {
+    dispatch('getProjects')
+    const proj = this.getters.project(task.projectId)
+    const t = proj.tasks.find(t => t.id === task.id)
+    t.editing = !t.editing
+    commit('UPDATE_PROJECT', proj)
+    window.localStorage.setItem('projects', JSON.stringify(this.getters.allProjects))
   }
 }
 

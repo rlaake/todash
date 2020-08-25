@@ -10,7 +10,7 @@
       <span id="project-title" v-on:click="setProjectActive(project); UIWidthCheck(); resetDate();">{{project.title}}</span>
 
       <div class="buttons" v-if="isMobile" v-bind:class="{'is-hidden': UIIsEditing}">
-        <button class="button is-text" v-on:click="toggleProjectIsEditing(); toggleUIIsEditing();">
+        <button class="button is-text" v-on:click="toggleProjectIsEditing(project); toggleUIIsEditing();">
           <i class="fas fa-edit"></i>
         </button>
         <button class="button is-text" v-on:click="deleteProject(project)">
@@ -19,7 +19,7 @@
       </div>
 
       <div class="buttons" v-else v-bind:class="{'is-hidden': !showButtons || UIIsEditing}">
-        <button class="button is-text" v-on:click="toggleProjectIsEditing(); toggleUIIsEditing();">
+        <button class="button is-text" v-on:click="toggleProjectIsEditing(project); toggleUIIsEditing();">
           <i class="fas fa-edit"></i>
         </button>
         <button class="button is-text" v-on:click="deleteProject(project)">
@@ -42,13 +42,13 @@
       <br>
 
       <div class="buttons">
-        <button class="button is-text" v-bind:disabled="!hasTitle" v-on:click="toggleProjectIsEditing(); toggleUIIsEditing(); submitEdit();">
+        <button class="button is-text" v-bind:disabled="!hasTitle" v-on:click="toggleProjectIsEditing(project); toggleUIIsEditing(); submitEdit();">
           <i class="fas fa-check"></i>
         </button>
         <button class="button is-text" v-if="project.newProject" v-on:click=" deleteProject(project); toggleUIIsEditing();">
           <i class="fas fa-trash-alt"></i>
         </button>
-        <button class="button is-text" v-else v-on:click="toggleProjectIsEditing(); toggleUIIsEditing(); cancelEdit()">
+        <button class="button is-text" v-else v-on:click="toggleProjectIsEditing(project); toggleUIIsEditing(); cancelEdit()">
           <i class="fas fa-times"></i>
         </button>
       </div>
@@ -82,13 +82,10 @@ export default {
   methods: {
     ...mapActions([
       'setNavActive', 'setProjectListClasses', 'resetDate',
-      'toggleUIIsEditing', 'setProjectActive', 'editProject', 'deleteProject'
+      'toggleUIIsEditing', 'setProjectActive', 'editProject', 'deleteProject', 'toggleProjectIsEditing'
     ]),
     toggleButtons () {
       this.showButtons = !this.showButtons
-    },
-    toggleProjectIsEditing () {
-      this.project.editing = !this.project.editing
     },
     submitEdit () {
       this.editProject({
