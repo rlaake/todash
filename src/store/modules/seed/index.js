@@ -182,6 +182,20 @@ const actions = {
     t.editing = !t.editing
     commit('UPDATE_PROJECT', proj)
     window.localStorage.setItem('projects', JSON.stringify(this.getters.allProjects))
+  },
+  checkForProjects ({ commit }) {
+    if (this.getters.allProjects.length === 0) {
+      commit('UPDATE_PROJECTS', [{
+        id: 0,
+        title: 'First Project',
+        color: '#000000',
+        active: true,
+        editing: false,
+        newProject: false,
+        tasks: []
+      }])
+      window.localStorage.setItem('projects', JSON.stringify(this.getters.allProjects))
+    }
   }
 }
 

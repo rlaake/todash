@@ -49,7 +49,7 @@
           </a>
         </div>
       </nav>
-      <span class="is-size-5 no-tasks">Nothing planned for this date.</span>
+      <span class="is-size-5 no-tasks">Nothing planned for this date. Add a new project or tasks.</span>
     </div>
 
   </div>
