@@ -7,6 +7,7 @@
       <span class="panel-icon">
         <i class="far fa-dot-circle" v-bind:style="projectColor"></i>
       </span>
+
       <span id="project-title" v-on:click="setProjectActive(project); UIWidthCheck(); resetDate();">{{project.title}}</span>
 
       <div class="buttons" v-if="isMobile" v-bind:class="{'is-hidden': UIIsEditing}">

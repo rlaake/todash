@@ -1,5 +1,0 @@
-Action sudo code:
-  get projects value from localStorage and create variable projects to store it
-  modify projects based on Action
-  update localStorage
-  update state
