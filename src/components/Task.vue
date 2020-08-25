@@ -51,7 +51,7 @@
       </div>
 
       <!-- Buttons for desktop layout, visible on mouseover task event fired -->
-      <div class="buttons media-right" v-bind:class="{'is-hidden': !buttonsVisible || UIIsEditing}">
+      <div class="buttons media-right" v-if="!isMobile" v-bind:class="{'is-hidden': !buttonsVisible || UIIsEditing}">
         <button class="button is-text" v-if="!task.finished" v-on:click='toggleTaskFinished(task); hideButtons();'>
           <i class="fas fa-check"></i>
         </button>

@@ -22,10 +22,14 @@ export default {
     TaskList
   },
   computed: {
-    ...mapGetters(['haveProjects', 'navActive', 'projectListClasses', 'projectIsEditing'])
+    ...mapGetters(['navActive', 'projectListClasses', // UI module
+      'haveProjects', 'projectIsEditing']) // Projects module
   },
   methods: {
-    ...mapActions(['setNavActive', 'setProjectListClasses', 'toggleNav', 'getProjects', 'checkForProjects', 'toggleUIIsEditing']),
+    ...mapActions(['toggleNav', 'setProjectListClasses', 'setNavActive', 'toggleUIIsEditing', // UI module
+      'getProjects', 'checkForProjects']), // Projects module
+
+    // window resize listener callback
     resizeListenerCB () {
       if (window.innerWidth > 1023 && this.haveProjects && !this.projectIsEditing) {
         this.setProjectListClasses('is-2 is-hidden-touch')
@@ -36,6 +40,7 @@ export default {
       }
     }
   },
+  // retrieve data from local storage, initialize deault project if localstorage is empty
   created () {
     this.getProjects()
     this.checkForProjects()
@@ -43,6 +48,7 @@ export default {
   mounted () {
     window.addEventListener('resize', this.resizeListenerCB)
   },
+  // show only the projects column if there are no projects
   updated () {
     if (!this.haveProjects) {
       this.setProjectListClasses('')
