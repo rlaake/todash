@@ -37,8 +37,8 @@ export default {
     }
   },
   created () {
-    this.checkForProjects()
     this.getProjects()
+    this.checkForProjects()
   },
   mounted () {
     window.addEventListener('resize', this.resizeListenerCB)
