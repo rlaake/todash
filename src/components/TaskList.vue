@@ -27,7 +27,7 @@
       <nav class="level is-mobile">
         <div class="level-left">
           <div class="level-item">
-            <span class="is-size-3">{{date}}</span>
+            <span class="is-size-3">{{formattedDate}}</span>
           </div>
           <span class="level-item">
             <span class="icon is-size-5"><i class="fas fa-calendar"></i><input id="date-picker" v-on:change="handleDate" type="date"></span>
@@ -42,7 +42,7 @@
       <nav class="level is-mobile">
         <div class="level-left">
           <div class="level-item">
-            <span class="is-size-3">{{date}}</span>
+            <span class="is-size-3">{{formattedDate}}</span>
           </div>
           <a class="level-item">
             <span class="icon is-size-5"><i class="fas fa-calendar"></i><input id="date-picker" v-on:change="handleDate" type="date"></span>
@@ -70,6 +70,10 @@ export default {
     },
     haveActiveProject () {
       return Object.keys(this.activeProject).length > 0
+    },
+    formattedDate () {
+      const x = this.date.split(/\D+/)
+      return x[1] + '/' + x[2] + '/' + x[0]
     }
   },
   methods: {
@@ -77,6 +81,12 @@ export default {
     handleDate (event) {
       this.setDate(event.target.value)
       this.resetProjectActive()
+    }
+  },
+  mounted () {
+    if (!(Object.keys(this.activeProject) > 0) && this.date === '') {
+      const startDate = new Date().toLocaleDateString().split('/')
+      this.setDate(startDate[2] + '-' + startDate[0] + '-' + startDate[1])
     }
   }
 }
